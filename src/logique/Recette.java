@@ -22,6 +22,9 @@ public class Recette
 
         this.setDifficulte(difficulte);
         this.setNom(nom);
+        if(pointExperience < 0){
+            throw  new IllegalArgumentException(MessagesErreur.ERREUR_VALEUR_NEGATIVE);
+        }
         this.setPointExperience(pointExperience);
     }
 
@@ -48,6 +51,10 @@ public class Recette
 
     private void setPointExperience(int pointExperience) {
         this.pointExperience = pointExperience;
+    }
+
+    public ArrayList<Ingredient> getIngredient() {
+        return this.ingredients;
     }
 
     public int obtenirPrix()

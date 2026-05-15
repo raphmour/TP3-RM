@@ -19,7 +19,9 @@ public class Laboratoire
     {
         this.chargerIngredients();
         this.chargerRecettes();
-
+        if (alchimiste == null){
+            throw new IllegalArgumentException(MessagesErreur.ERREUR_ALCHIMISTE_NULL);
+        }
         this.proprietaire = alchimiste;
     }
 
@@ -77,6 +79,9 @@ public class Laboratoire
 
     public Recette trouverRecette(String ing1, String ing2, String ing3)
     {
+        if(ing1 == null || ing2 == null || ing3 == null){
+            throw new IllegalArgumentException(MessagesErreur.ERREUR_PARAMETRE_NULL);
+        }
         Recette resultat = null;
 
         for(Recette element : this.recettes)
@@ -94,7 +99,9 @@ public class Laboratoire
     public Ingredient trouverIngredient(String nom)
     {
         Ingredient resultat = null;
-
+        if(nom == null){
+            throw new IllegalArgumentException(MessagesErreur.ERREUR_PARAMETRE_NULL);
+        }
         for (Ingredient ing : ingredients)
         {
             if (ing.getNom().equals(nom))
@@ -103,7 +110,9 @@ public class Laboratoire
                 break;
             }
         }
-
+        if (resultat == null){
+            throw new IllegalArgumentException(MessagesErreur.ERREUR_INGREDIENT_INEXISTANT);
+        }
         return resultat;
     }
 

@@ -4,10 +4,7 @@ import java.util.Random;
 
 public class Alchimiste
 {
-    public static final String ERREUR_VALEUR_NULL = "Valeur null non permise.";
     public static final int LONGUEUR_NOM_MINIMAL = 6;
-    public static final String ERREUR_NOM_TROP_COURT = "Ce nom est trop court, longueur minimale = " + LONGUEUR_NOM_MINIMAL + " caractères.";
-
     public static final int EXPERIENCE_POUR_NIVEAU_SUIVANT = 500;
     private String nom;
     private int niveau;
@@ -42,13 +39,13 @@ public class Alchimiste
     private void setNom(String nom)
     {
         if (nom == null){
-            throw new IllegalArgumentException(ERREUR_VALEUR_NULL);
+            throw new IllegalArgumentException(MessagesErreur.ERREUR_PARAMETRE_NULL);
         }
         if (nom.isEmpty()){
-            throw new IllegalArgumentException(ERREUR_VALEUR_NULL);
+            throw new IllegalArgumentException(MessagesErreur.ERREUR_STRING_VIDE);
         }
         if (nom.length()<LONGUEUR_NOM_MINIMAL){
-            throw new IllegalArgumentException(ERREUR_NOM_TROP_COURT);
+            throw new IllegalArgumentException(MessagesErreur.ERREUR_NOM_ALCHIMISTE_TROP_COURT);
         }
         this.nom = nom;
     }
@@ -64,7 +61,7 @@ public class Alchimiste
     public boolean fairePotion(Recette recette)
     {
         if(recette == null){
-            throw new IllegalArgumentException(ERREUR_VALEUR_NULL);
+            throw new IllegalArgumentException(MessagesErreur.ERREUR_PARAMETRE_NULL);
         }
         boolean estReussi = false;
         double tauxExperience = this.niveau * 0.05;
@@ -89,8 +86,7 @@ public class Alchimiste
     private void ajouterExperience(int experience)
     {
         this.setExperience(this.getExperience() + experience);
-
-        if(this.getExperience() >= EXPERIENCE_POUR_NIVEAU_SUIVANT)
+        while(this.getExperience() >= EXPERIENCE_POUR_NIVEAU_SUIVANT)
         {
             this.setNiveau(this.getNiveau() + 1);
             this.setExperience(this.getExperience() - EXPERIENCE_POUR_NIVEAU_SUIVANT);
