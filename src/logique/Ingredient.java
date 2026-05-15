@@ -4,9 +4,19 @@ public class Ingredient
 {
     private String nom;
     private int prix;
+    public static final int LONGUEUR_NOM_MINIMALE = 6;
 
     public Ingredient(String nom, int prix)
     {
+        if(nom == null){
+            throw new IllegalArgumentException(MessagesErreur.ERREUR_PARAMETRE_NULL);
+        }
+        if(nom.length() < LONGUEUR_NOM_MINIMALE){
+            throw new IllegalArgumentException(MessagesErreur.ERREUR_NOM_INGREDIENT_TROP_COURT);
+        }
+        if(prix < 0){
+            throw new IllegalArgumentException(MessagesErreur.ERREUR_VALEUR_NEGATIVE);
+        }
         this.setNom(nom);
         this.setPrix(prix);
     }
