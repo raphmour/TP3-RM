@@ -4,6 +4,10 @@ import java.util.Random;
 
 public class Alchimiste
 {
+    public static final String ERREUR_VALEUR_NULL = "Valeur null non permise.";
+    public static final int LONGUEUR_NOM_MINIMAL = 6;
+    public static final String ERREUR_NOM_TROP_COURT = "Ce nom est trop court, longueur minimale = " + LONGUEUR_NOM_MINIMAL + " caractères.";
+
     public static final int EXPERIENCE_POUR_NIVEAU_SUIVANT = 500;
     private String nom;
     private int niveau;
@@ -37,6 +41,15 @@ public class Alchimiste
 
     private void setNom(String nom)
     {
+        if (nom == null){
+            throw new IllegalArgumentException(ERREUR_VALEUR_NULL);
+        }
+        if (nom.isEmpty()){
+            throw new IllegalArgumentException(ERREUR_VALEUR_NULL);
+        }
+        if (nom.length()<LONGUEUR_NOM_MINIMAL){
+            throw new IllegalArgumentException(ERREUR_NOM_TROP_COURT);
+        }
         this.nom = nom;
     }
     private void setNiveau(int niveau)
@@ -50,6 +63,9 @@ public class Alchimiste
 
     public boolean fairePotion(Recette recette)
     {
+        if(recette == null){
+            throw new IllegalArgumentException(ERREUR_VALEUR_NULL);
+        }
         boolean estReussi = false;
         double tauxExperience = this.niveau * 0.05;
         double tauxEchec = (recette.getDifficulte() * 0.25) - tauxExperience;
